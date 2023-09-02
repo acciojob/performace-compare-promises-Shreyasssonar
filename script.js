@@ -13,3 +13,27 @@ const apiUrls = [
 ];
 
 // You can write your code here
+const startTimeAll = Date.now();
+const allPromises = apiUrls.map(fetchData);
+Promise.all(allPromises)
+  .then(() => {
+    const endTimeAll = Date.now();
+    const timeTakenAll = endTimeAll - startTimeAll;
+    document.getElementById("output-all").textContent = timeTakenAll + " ms";
+  })
+  .catch((error) => {
+    console.error("Promise.all() failed:", error);
+  });
+
+// Measure the time taken for Promise.any
+const startTimeAny = Date.now();
+const anyPromises = apiUrls.map(fetchData);
+Promise.any(anyPromises)
+  .then(() => {
+    const endTimeAny = Date.now();
+    const timeTakenAny = endTimeAny - startTimeAny;
+    document.getElementById("output-any").textContent = timeTakenAny + " ms";
+  })
+  .catch((error) => {
+    console.error("Promise.any() failed:", error);
+  });
